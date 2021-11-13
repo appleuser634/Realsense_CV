@@ -41,9 +41,13 @@ def get_arm_hsv(img,depth_colormap):
     big_area = contours[big_index]
 
     M = cv2.moments(big_area)
-
-    x = int(M['m10']/M['m00'])
-    y = int(M['m01']/M['m00'])
+    
+    try:
+        x = int(M['m10']/M['m00'])
+        y = int(M['m01']/M['m00'])
+    except ZeroDivisionError:
+        x = 0
+        y = 0
     
     hsv_color = depth_colormap[y][x]
 
